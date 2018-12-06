@@ -1,4 +1,6 @@
-# Cordova Firebase Enhanced Ecommerce Analytics Plugins.
+# Cordova/Ionic Firebase Enhanced Ecommerce Analytics Plugins.
+
+Cordova/Ionic plugin for firebase enhanced ecommerce analytics.
 
 ## README
 
