@@ -27,7 +27,10 @@ var PLATFORM = {
             'GoogleService-Info.plist',
             IOS_DIR + '/www/GoogleService-Info.plist',
             'www/GoogleService-Info.plist'
-        ]
+        ],
+        container: {
+            dest: IOS_DIR + '/' + name + '/Resources',
+        }
     },
     ANDROID: {
         dest: [
@@ -53,12 +56,12 @@ module.exports = function (context) {
     if (platforms.indexOf('ios') !== -1 && utilities.directoryExists(IOS_DIR)) {
         console.log('Preparing Firebase on iOS');
         utilities.copyKey(PLATFORM.IOS);
-        utilities.copyContainer(PLATFORM.IOS);
+        utilities.copyContainer(PLATFORM.IOS, true);
     }
     if (platforms.indexOf('android') !== -1 && utilities.directoryExists(ANDROID_DIR)) {
         console.log('Preparing Firebase on Android');
         utilities.copyKey(PLATFORM.ANDROID);
-        utilities.copyContainer(PLATFORM.ANDROID);
+        utilities.copyContainer(PLATFORM.ANDROID, false);
 
     }
 };

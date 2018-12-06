@@ -32,16 +32,22 @@ module.exports = {
         return new elementTreeModule.ElementTree(elementTreeModule.XML(contents));
     },
 
-    getCotainerName: function () {
-        var preference = this.getConfigXmlData().findall("preference[@name='GTMContainerName']")[0];
+    getCotainerName: function (ios) {
+        var preference;
+        if (ios) {
+            preference = this.getConfigXmlData().findall("preference[@name='GTMiOSContainerName']")[0];
+        } else {
+            preference = this.getConfigXmlData().findall("preference[@name='GTMAndroidContainerName']")[0];
+        }
+
         if (preference) {
             return preference.attrib.value;
         } else {
             return null;
         }
     },
-    copyContainer: function (platform) {
-        var containerName = this.getCotainerName();
+    copyContainer: function (platform, ios) {
+        var containerName = this.getCotainerName(ios);
         var containerFile = cwd + "/www/" + containerName;
         if (this.fileExists(containerFile)) {
             try {
