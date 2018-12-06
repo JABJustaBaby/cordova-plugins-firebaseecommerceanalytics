@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugin id="cordova-plugins-firebaseecommerceanalytics" version="0.0.1" 
+    xmlns="http://apache.org/cordova/ns/plugins/1.0" 
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <name>FirebaseEcommerceAnalytics</name>
+    <js-module name="FirebaseEcommerceAnalytics" src="www/FirebaseEcommerceAnalytics.js">
+        <clobbers target="cordova.plugins.FirebaseEcommerceAnalytics" />
+    </js-module>
+
+    <engines>
+        <engine name="cordova" version=">=7.1.0"/>
+        <engine name="cordova-android" version=">=7.0.0"/>
+        <engine name="cordova-ios" version=">=4.3.0"/>
+    </engines>
+
+    <platform name="android">
+        <preference name="FIREBASE_CORE_VERSION" default="16.+"/>
+
+        <config-file parent="/*" target="res/xml/config.xml">
+            <feature name="FirebaseEcommerceAnalytics">
+                <param name="android-package" value="me.rahul.plugins.firebaseecommerceanalytics.FirebaseEcommerceAnalytics" />
+                <param name="onload" value="true" />
+            </feature>
+        </config-file>
+
+        <config-file target="AndroidManifest.xml" parent="/*">
+            <uses-permission android:name="android.permission.INTERNET" />
+            <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+        </config-file>
+        <!-- Add support for devices without Google Play Services installed. -->
+        <config-file target="AndroidManifest.xml" parent="/manifest/application">
+            <receiver android:name="com.google.android.gms.analytics.AnalyticsReceiver" android:enabled="true">
+                <intent-filter>
+                    <action android:name="com.google.android.gms.analytics.ANALYTICS_DISPATCH" />
+                </intent-filter>
+            </receiver>
+            <service android:name="com.google.android.gms.analytics.AnalyticsService" android:enabled="true" android:exported="false"/>
+            <receiver android:name="com.google.android.gms.analytics.CampaignTrackingReceiver" android:enabled="true" android:exported="true">
+                <intent-filter>
+                    <action android:name="com.android.vending.INSTALL_REFERRER" />
+                </intent-filter>
+            </receiver>
+            <service android:name="com.google.android.gms.analytics.CampaignTrackingService" android:enabled="true" android:exported="false"/>
+        </config-file>
+
+        <framework src="com.google.firebase:firebase-core:$FIREBASE_CORE_VERSION" />
+        <framework src="com.google.android.gms:play-services-tagmanager:16.+" />
+        <framework src="com.google.android.gms:play-services-analytics:16.+" />
+
+        <!-- <resource-file src="src/android/assets/GTM-MD4Z3PZ.json" target="assets/containers/GTM-MD4Z3PZ.json" /> -->
+        <framework src="src/android/gradle/build.gradle" custom="true" type="gradleReference"/>
+
+        <source-file src="src/android/FirebaseEcommerceAnalytics.java" target-dir="src/me/rahul/plugins/firebaseecommerceanalytics" />
+    </platform>
+    <platform name="ios">
+        <config-file parent="/*" target="config.xml">
+            <feature name="FirebaseEcommerceAnalytics">
+                <param name="ios-package" value="FirebaseEcommerceAnalytics" />
+                <param name="onload" value="true" />
+            </feature>
+        </config-file>
+        <framework src="GoogleTagManager" type="podspec" spec="6.0"/>
+        <framework src="Firebase/Core" type="podspec" spec="5.13" />
+        <source-file src="src/ios/FirebaseEcommerceAnalytics.m" />
+    </platform>
+    <hook type="after_prepare" src="scripts/after_prepare.js" />
+</plugin>

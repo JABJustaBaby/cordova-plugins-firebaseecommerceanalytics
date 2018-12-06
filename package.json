@@ -1,0 +1,24 @@
+{
+  "name": "cordova-plugins-firebaseecommerceanalytics",
+  "version": "0.0.1",
+  "description": "Firebase Enhanced Ecommerce Analytics Plugin",
+  "cordova": {
+    "id": "cordova-plugins-firebaseecommerceanalytics",
+    "platforms": [
+      "android",
+      "ios"
+    ]
+  },
+  "keywords": [
+    "ecosystem:cordova",
+    "cordova-android",
+    "cordova-ios"
+  ],
+  "dependencies": {
+    "colors": "^1.1.2",
+    "elementtree": "^0.1.6",
+    "minimist": "1.2.0"
+  },
+  "author": "Rahul Pandey",
+  "license": "ISC"
+}
