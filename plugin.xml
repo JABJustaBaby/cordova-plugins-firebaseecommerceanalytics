@@ -60,8 +60,12 @@
             </feature>
         </config-file>
         <framework src="GoogleTagManager" type="podspec" spec="6.0"/>
-        <framework src="Firebase/Core" type="podspec" spec="5.13" />
+        <framework src="Firebase/Core" type="podspec" spec=""/>
+        <framework src="Firebase/Analytics" type="podspec" spec=""/>
+
         <source-file src="src/ios/FirebaseEcommerceAnalytics.m" />
+        <header-file src="src/ios/FirebaseEcommerceAnalytics.h" />
+
     </platform>
     <hook type="after_prepare" src="scripts/after_prepare.js" />
 </plugin>

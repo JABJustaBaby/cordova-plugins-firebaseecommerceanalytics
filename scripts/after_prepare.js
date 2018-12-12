@@ -29,7 +29,7 @@ var PLATFORM = {
             'www/GoogleService-Info.plist'
         ],
         container: {
-            dest: IOS_DIR + '/' + name + '/Resources',
+            dest: IOS_DIR + '/' + name + '/container',
         }
     },
     ANDROID: {
