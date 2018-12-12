@@ -13,7 +13,7 @@ Please make sure Firebase and Play services version matches with your other plug
 
 ## INSTALLATION
 
-`cordova plugin add -d PathToPluginFolder --variable "FIREBASE_CORE_VERSION" = "16.+"`
+`cordova plugin add -d https://github.com/JABJustaBaby/cordova-plugins-firebaseecommerceanalytics --variable "FIREBASE_CORE_VERSION" = "16.+"`
 
 If you are having some issues with pod in ios, please do this
 
