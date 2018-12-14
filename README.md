@@ -8,8 +8,12 @@ Please make sure Firebase and Play services version matches with your other plug
 
 - Please put google-services.json and GoogleService-Info.plist file in your project root or inside www folder
 - Please add following in your config.xml, before installing the plugin
-  `<preference name="GTMAndroidContainerName" value="GTM-XXXXXXX.json" /> <preference name="GTMiOSContainerName" value="GTM-XXXXXXX.json" />`
-  Container file should be in the format GTM-XXXXXX.json and should be present inside www folder
+  ```
+  <preference name="GTMAndroidContainerName" value="GTM-XXXXXXX.json" />
+  <preference name="GTMiOSContainerName" value="GTM-XXXXXXX.json" />
+  ```
+   
+   Container file should be in the format GTM-XXXXXX.json and should be present inside www folder
 
 ## INSTALLATION
 
