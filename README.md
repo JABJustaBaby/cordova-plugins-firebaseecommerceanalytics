@@ -4,7 +4,7 @@ Cordova/Ionic plugin for firebase enhanced ecommerce analytics.
 
 ## INSTALLATION
 
-`cordova plugin add -d https://github.com/JABJustaBaby/cordova-plugins-firebaseecommerceanalytics --variable "FIREBASE_CORE_VERSION" = "16.+"`
+`cordova plugin add https://github.com/JABJustaBaby/cordova-plugins-firebaseecommerceanalytics --variable "FIREBASE_CORE_VERSION" = "16.+"`
 
 If you are having some issues with pod in ios, please do this and reinstall the plugin
 
