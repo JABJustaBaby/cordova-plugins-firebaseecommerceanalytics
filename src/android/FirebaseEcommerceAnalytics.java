@@ -44,14 +44,14 @@ public class FirebaseEcommerceAnalytics extends CordovaPlugin {
         if (action.equals("logProductsListing")) {
             JSONArray products = args.getJSONArray(0);
             String list_name = args.getString(1);
-            this.logProductsListing(products, callbackContext);
+            this.logProductsListing(products, list_name, callbackContext);
             return true;
         }
         // Log Product select/click events
         if (action.equals("logSelectProduct")) {
             JSONObject product = args.getJSONObject(0);
             String list_name = args.getString(1);
-            this.logSelectProduct(product, callbackContext);
+            this.logSelectProduct(product, list_name, callbackContext);
             return true;
         }
         if (action.equals("logProductDetailView")) {
