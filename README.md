@@ -6,13 +6,12 @@ Cordova/Ionic plugin for firebase enhanced ecommerce analytics.
 
 `cordova plugin add -d https://github.com/JABJustaBaby/cordova-plugins-firebaseecommerceanalytics --variable "FIREBASE_CORE_VERSION" = "16.+"`
 
-If you are having some issues with pod in ios, please do this
+If you are having some issues with pod in ios, please do this and reinstall the plugin
 
 ```
- //for iOS
-   cd platforms/ios
-   pod setup
-   pod install
+  cd platforms/ios
+  pod setup
+  pod update --repo-update
 ```
 
 ## PLATFORMS
@@ -23,14 +22,6 @@ If you are having some issues with pod in ios, please do this
 ## README
 
 Please make sure Firebase and Play services version matches with your other plugins in the project. Also in iOS please open .xcworkspace file in Xcode * rather than .xcodeproj file or You can also directly open folder platforms/ios in Xcode if you do not want to select file. If you do not do so, then Xcode *will not be able to load all the pod dependencies.
-
-If you have any issue with pod repo, please update your pod -
-
-```
-  cd platforms/ios
-  pod setup
-  pod update --repo-update
-```
 
 - Please put google-services.json and GoogleService-Info.plist file in your project root or inside www folder
 - Please add following in your config.xml, before installing the plugin
