@@ -56,6 +56,8 @@ Measure product impressions by logging event with an ITEM_LIST parameter and one
 
 **products**: `Array.&lt;object&gt;`, Array of product items.
 
+**item_name**: `String`, Item Lists Name to send to Firebase. Defaults to "Search Results"
+
 **Example**:
 
 ```js
@@ -72,8 +74,11 @@ var products = [
   },
 ];
 
+var item_name = 'Search Results';
+
 cordova.plugins.FirebaseEcommerceAnalytics.logProductsListing(
   products,
+  item_name,
   successCallback,
   errorCallback
 );
@@ -86,6 +91,8 @@ This function is used to log product click/select impressions..
 **Parameters**
 
 **product**: `Object`, Single product object
+
+**item_name**: `String`, Item Lists Name to send to Firebase. Defaults to "Search Results"
 
 **Example**:
 
@@ -101,8 +108,11 @@ var product = {
   INDEX: 1, //incremented value, next product should have index 2
 };
 
+var item_name = 'Search Results';
+
 cordova.plugins.FirebaseEcommerceAnalytics.logSelectProduct(
   product,
+  item_name,
   successCallback,
   errorCallback
 );

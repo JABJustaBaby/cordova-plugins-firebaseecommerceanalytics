@@ -21,6 +21,7 @@
 
 - (void) logProductsListing:(CDVInvokedUrlCommand *)command {
     NSArray *params = [command argumentAtIndex:0];
+    NSString *item_name = [command argumentAtIndex:1];
 //    NSLog(@"params = %@", params);
     int len = (int)params.count;
     NSMutableArray *items = [[NSMutableArray alloc] init];
@@ -34,28 +35,29 @@
         NSDictionary *product = [self getProductDictionaryWithIndex:productObject];
         [items addObject:product];
     }
-    
+
     // Prepare ecommerce dictionary.
     NSArray *productData = [items copy];
 //    NSLog(@"productData = %@", productData);
     NSDictionary *ecommerce = @{
                                 @"items" : productData,
-                                kFIRParameterItemList : @"Search Results" // List name.
+                                kFIRParameterItemList : item_name // List name.
                                 };
-    
+
     // Log select_content event with ecommerce dictionary.
     [FIRAnalytics logEventWithName:kFIREventViewSearchResults parameters:ecommerce];
     [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_OK] callbackId:command.callbackId];
 }
 - (void) logSelectProduct:(CDVInvokedUrlCommand *)command {
     NSDictionary *productObject = [self getProductDictionaryWithIndex:[command argumentAtIndex:0]];
+    NSString *item_name = [command argumentAtIndex:1];
     NSArray *items = @[productObject];
     NSLog(@"productObject = %@", productObject);
     NSDictionary *ecommerce = @{
                                 @"items" : items,
-                                kFIRParameterItemList : @"Search Results" // List name.
+                                kFIRParameterItemList : item_name // List name.
                                 };
-    
+
     // Log select_content event with ecommerce dictionary.
     [FIRAnalytics logEventWithName:kFIREventSelectContent parameters:ecommerce];
     [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_OK] callbackId:command.callbackId];
@@ -67,7 +69,7 @@
                                 @"items" : items,
                                 kFIRParameterItemList : @"Search Results" // List name.
                                 };
-    
+
     // Log view_item event with ecommerce dictionary.
     [FIRAnalytics logEventWithName:kFIREventViewItem parameters:ecommerce];
     [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_OK] callbackId:command.callbackId];
@@ -100,13 +102,13 @@
                                 kFIRParameterCreativeName : [self checkAndFormatToString:[params objectForKey:@"CREATIVE_NAME"]],
                                 kFIRParameterCreativeSlot : [self checkAndFormatToString:[params objectForKey:@"CREATIVE_SLOT"]]
                                 };
-    
+
     // Prepare ecommerce dictionary.
     NSArray *promotions = @[promotion];
     NSDictionary *ecommerce = @{
                                 @"promotions" : promotions
                                 };
-    
+
     // Log view_item, view_item_list, or view_search_results
     // event with ecommerce bundle.
     [FIRAnalytics logEventWithName:kFIREventViewItem parameters:ecommerce];
@@ -122,10 +124,10 @@
                                 kFIRParameterCreativeName : [self checkAndFormatToString:[params objectForKey:@"CREATIVE_NAME"]],
                                 kFIRParameterCreativeSlot : [self checkAndFormatToString:[params objectForKey:@"CREATIVE_SLOT"]]
                                 };
-    
+
     // Prepare ecommerce dictionary.
     NSArray *promotions = @[promotion];
-    
+
     // Set properties for the event to be shown in the Google Analytics (Firebase) reports.
     // These properties will not impact the Universal Analytics reporting.
     NSDictionary *ecommerce = @{
@@ -133,7 +135,7 @@
                                 kFIRParameterContentType : @"Internal Promotions",
                                 @"promotions" : promotions
                                 };
-    
+
     // Log select_content, view_item_list, or view_search_results event with ecommerce bundle.
     [FIRAnalytics logEventWithName:kFIREventSelectContent parameters:ecommerce];
     [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_OK] callbackId:command.callbackId];
@@ -147,7 +149,7 @@
         NSDictionary *product = [self getProductDictionaryWithQuantity:[params objectAtIndex:i]];
         [items addObject:product];
     }
-    
+
     // Prepare ecommerce dictionary.
     NSArray *productData = [items copy];
     //    NSLog(@"productData = %@", productData);
@@ -168,7 +170,7 @@
         NSDictionary *product = [self getProductDictionaryWithQuantity:[params objectAtIndex:i]];
         [items addObject:product];
     }
-    
+
     // Prepare ecommerce dictionary.
     NSArray *productData = [items copy];
     //    NSLog(@"productData = %@", productData);
@@ -205,7 +207,7 @@
         NSDictionary *product = [self getProductDictionaryWithQuantity:[params objectAtIndex:i]];
         [items addObject:product];
     }
-    
+
     // Prepare ecommerce dictionary.
     NSArray *productData = [items copy];
     NSString *coupon = [self checkAndFormatToString:[transactionDetails objectForKey:@"COUPON"]];
@@ -235,7 +237,7 @@
                                 kFIRParameterTransactionID : [self checkAndFormatToString:[refundParams objectForKey:@"TRANSACTION_ID"]], // Required.
                                 kFIRParameterValue : revenue // Optional in Universal Analytics.
                                 };
-    
+
     // Log purchase_refund event with ecommerce.
     [FIRAnalytics logEventWithName:kFIREventPurchaseRefund parameters:ecommerce];
     [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_OK] callbackId:command.callbackId];
@@ -249,7 +251,7 @@
                                       kFIRParameterItemID : [self checkAndFormatToString:[refundParams objectForKey:@"ITEM_ID"]], // Required for partial refund.
                                       kFIRParameterQuantity : quantity
                                       };
-    
+
     // Prepare ecommerce bundle with transaction ID to be refunded.
     NSDictionary *ecommerce = @{
                                 @"items" : @[ refundedProduct ],
@@ -257,7 +259,7 @@
                                 kFIRParameterValue : revenue // Optional in Universal Analytics.
 
                                 };
-    
+
     // Log purchase_refund event with ecommerce.
     [FIRAnalytics logEventWithName:kFIREventPurchaseRefund parameters:ecommerce];
     [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_OK] callbackId:command.callbackId];
@@ -309,7 +311,7 @@
                                     kFIRParameterPrice, @"price",
                                     kFIRParameterIndex, @"index", nil];
     return [self createFirebaseParamFormat:options withDefault:defaultProduct];
-    
+
 }
 
 - (NSDictionary *)createFirebaseParamFormat:(NSDictionary *)params withDefault:(NSDictionary *)defaultProduct
@@ -322,7 +324,7 @@
             [mappedParams setObject:data forKey:new];
         }
     }];
-    
+
     NSDictionary *dictionary = [mappedParams copy];
     NSMutableDictionary *output = [NSMutableDictionary dictionaryWithCapacity:dictionary.count];
     [dictionary enumerateKeysAndObjectsUsingBlock:^(id key, id data, BOOL *stop) {

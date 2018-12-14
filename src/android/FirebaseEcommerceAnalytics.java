@@ -43,12 +43,14 @@ public class FirebaseEcommerceAnalytics extends CordovaPlugin {
         // Log Product Listings
         if (action.equals("logProductsListing")) {
             JSONArray products = args.getJSONArray(0);
+            String list_name = args.getString(1);
             this.logProductsListing(products, callbackContext);
             return true;
         }
         // Log Product select/click events
         if (action.equals("logSelectProduct")) {
             JSONObject product = args.getJSONObject(0);
+            String list_name = args.getString(1);
             this.logSelectProduct(product, callbackContext);
             return true;
         }
@@ -112,7 +114,7 @@ public class FirebaseEcommerceAnalytics extends CordovaPlugin {
         return false;
     }
 
-    private void logProductsListing(JSONArray products, CallbackContext callbackContext) {
+    private void logProductsListing(JSONArray products, String list_name, CallbackContext callbackContext) {
         try {
             // create a list of items(products) needs to be added to ecommerceBundle
             ArrayList items = new ArrayList();
@@ -131,7 +133,7 @@ public class FirebaseEcommerceAnalytics extends CordovaPlugin {
 
             // Set relevant bundle-level parameters
 
-            ecommerceBundle.putString(Param.ITEM_LIST, "Search Results"); // List name
+            ecommerceBundle.putString(Param.ITEM_LIST, list_name); // List name
 
             // Log view_search_results or view_item_list event with ecommerce bundle
             this.firebaseAnalytics.logEvent(Event.VIEW_SEARCH_RESULTS, ecommerceBundle);
@@ -142,7 +144,7 @@ public class FirebaseEcommerceAnalytics extends CordovaPlugin {
         }
     }
 
-    private void logSelectProduct(JSONObject product, CallbackContext callbackContext) {
+    private void logSelectProduct(JSONObject product, String list_name, CallbackContext callbackContext) {
         try {
             // create a list of items(products) needs to be added to ecommerceBundle
 
@@ -157,7 +159,7 @@ public class FirebaseEcommerceAnalytics extends CordovaPlugin {
 
                 // Set relevant bundle-level parameters
 
-                ecommerceBundle.putString(Param.ITEM_LIST, "Search Results"); // List name
+                ecommerceBundle.putString(Param.ITEM_LIST, list_name); // List name
                 // Log select_content event with ecommerce bundle
                 this.firebaseAnalytics.logEvent(Event.SELECT_CONTENT, ecommerceBundle);
                 callbackContext.success();
@@ -554,13 +556,7 @@ public class FirebaseEcommerceAnalytics extends CordovaPlugin {
             // index = -1. its a product details page, no need for index or quantity
             if (index != -1) {
                 if (!quantity) {
-                    // if (!product.isNull("INDEX")) {
-                    // a.putLong(Param.INDEX, product.getLong("INDEX"));
-                    // } else {
-                    // a.putLong(Param.INDEX, index);
-                    // }
                     a.putLong(Param.INDEX, product.getLong("INDEX"));
-
                 } else {
                     a.putLong(Param.QUANTITY, product.getLong("QUANTITY"));
                 }
