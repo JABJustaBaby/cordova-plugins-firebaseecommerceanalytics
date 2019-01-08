@@ -108,8 +108,9 @@ var exec = require('cordova/exec');
  * Measure product impressions by logging event with an ITEM_LIST parameter and one or more items (i.e. products) defined with the relevant fields.
  *
  * @method logProductsListing
- * @summary USAGE - cordova.plugins.FirebaseEcommerceAnalytics.logProductsListing(products, successCallback, errorCallback)
+ * @summary USAGE - cordova.plugins.FirebaseEcommerceAnalytics.logProductsListing(products, item_list_name, successCallback, errorCallback)
  * @param {Array<object>} products - Array of product items.
+ * @param {String} item_list_name Item Lists Name to send to Firebase. Defaults to "Search Results"
  * @example
  * var products = [
  *      {
@@ -124,12 +125,15 @@ var exec = require('cordova/exec');
  *      }
  * ];
  *
- * cordova.plugins.FirebaseEcommerceAnalytics.logProductsListing(products, successCallback, errorCallback);
+ * var item_list_name = "Search Results";
+ * cordova.plugins.FirebaseEcommerceAnalytics.logProductsListing(products, item_list_name, successCallback, errorCallback);
  */
-exports.logProductsListing = function (products, successCallback, errorCallback) {
-    console.log("Products", products);
+exports.logProductsListing = function (products, item_list_name, successCallback, errorCallback) {
+    if (!item_list_name || item_list_name.length === 0) {
+        item_list_name = "Search Results";
+    }
     exec(successCallback, errorCallback, 'FirebaseEcommerceAnalytics', 'logProductsListing', [
-        products,
+        products, item_list_name
     ]);
 };
 
@@ -137,8 +141,9 @@ exports.logProductsListing = function (products, successCallback, errorCallback)
  * This function is used to log product click/select impressions..
  *
  * @method logSelectProduct
- * @summary USAGE - cordova.plugins.FirebaseEcommerceAnalytics.logSelectProduct(product,successCallback, errorCallback)
+ * @summary USAGE - cordova.plugins.FirebaseEcommerceAnalytics.logSelectProduct(product,item_list_name,successCallback, errorCallback)
  * @param {Object} product - Single product object
+ * @param {String} item_list_name Item Lists Name to send to Firebase. Defaults to "Search Results"
  * @example
  * var product = {
  *          ITEM_ID:"sku1234",
@@ -151,13 +156,15 @@ exports.logProductsListing = function (products, successCallback, errorCallback)
  *          INDEX:1 //incremented value, next product should have index 2
  * };
  *
- *
- * cordova.plugins.FirebaseEcommerceAnalytics.logSelectProduct(product,successCallback, errorCallback);
+ * var item_list_name = "Search Results";
+ * cordova.plugins.FirebaseEcommerceAnalytics.logSelectProduct(product,item_list_name, successCallback, errorCallback);
  */
 
 
-exports.logSelectProduct = function (product, successCallback, errorCallback) {
-
+exports.logSelectProduct = function (product, item_list_name, successCallback, errorCallback) {
+    if (!item_list_name || item_list_name.length === 0) {
+        item_list_name = "Search Results";
+    }
     //Get the default required keys
     let defaultProductKeysArray = Object.keys(defaultProductObject);
 
@@ -169,7 +176,7 @@ exports.logSelectProduct = function (product, successCallback, errorCallback) {
 
     if (validateObject(defaultProductObject, defaultProductKeysArray, product, errorCallback)) {
         exec(successCallback, errorCallback, 'FirebaseEcommerceAnalytics', 'logSelectProduct', [
-            product,
+            product, item_list_name
         ]);
     }
 };
