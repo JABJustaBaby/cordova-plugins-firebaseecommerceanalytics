@@ -553,6 +553,10 @@ public class FirebaseEcommerceAnalytics extends CordovaPlugin {
             if (!product.getString("CURRENCY").isEmpty()) {
                 a.putString(Param.CURRENCY, product.getString("CURRENCY"));
             }
+
+            if(!product.getString("PAYWALL").isEmpty()){
+                a.putString("PAYWALL",product.getString("PAYWALL"));
+            }
             // index = -1. its a product details page, no need for index or quantity
             if (index != -1) {
                 if (!quantity) {
