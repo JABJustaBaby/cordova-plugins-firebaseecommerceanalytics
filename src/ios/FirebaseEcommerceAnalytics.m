@@ -295,7 +295,7 @@
                                     kFIRParameterItemBrand, @"item_brand",
                                     kFIRParameterCurrency, @"currency",
                                     kFIRParameterPrice, @"price",
-                                    @"PAYWALL": @"paywall",
+                                    @"PAYWALL", @"paywall",
                                     kFIRParameterQuantity, @"quantity", nil];
     return [self createFirebaseParamFormat:options withDefault:defaultProduct];
 }
