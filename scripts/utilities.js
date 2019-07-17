@@ -49,7 +49,11 @@ module.exports = {
     copyContainer: function (platform, ios) {
         var containerName = this.getCotainerName(ios);
         var containerFile = cwd + "/www/" + containerName;
+        if (!this.fileExists(containerFile)) {
+            containerFile = cwd + "/" + containerName;
+        }
         if (this.fileExists(containerFile)) {
+
             try {
                 var contents = fs.readFileSync(containerFile).toString();
                 try {
